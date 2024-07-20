@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package MapReduce;
+
+option go_package = "./MapReduce";
+
+service MapReduceService {
+    rpc AskForTask (TaskRequest) returns (TaskResponse) {};
+    rpc SendMapResult (MapResultMessage) returns (Bool) {};
+    rpc SendReduceResult (ReduceResultMessage) returns (Bool) {};
+}
+
+message TaskRequest {
+    string ip = 1;
+}
+
+message TaskResponse {
+    string type = 1;
+    string key = 2;
+    string value = 3;
+    repeated string allvals = 4;
+}
+
+message MapResultMessage {
+    repeated MapResult results = 2;
+}
+
+message MapResult {
+    string key = 1;
+    string value = 2;
+}
+
+message ReduceResultMessage {
+    string key = 1;
+    string value = 2;
+}
+
+message Bool {
+    bool success = 1;
+}
